@@ -1,7 +1,7 @@
 FROM postgres:alpine
 
 # Install Dependencies
-RUN apk add --no-cache py-pip curl openrc nodejs npm
+RUN apk add --no-cache py-pip curl nodejs npm
 
 # Install AWS CLI
 RUN pip install awscli --upgrade
@@ -22,4 +22,5 @@ RUN mv ./aws-iam-authenticator /usr/local/bin
 
 # Set up Postgres
 VOLUME /var/lib/postgresql/data
+USER postgres
 RUN ./docker-entrypoint.sh && pg_ctl -D /var/lib/postgresql/data -l /var/lib/postgresql/log.log start && psql --command "ALTER USER postgres PASSWORD 'postgres';"
