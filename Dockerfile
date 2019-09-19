@@ -22,4 +22,4 @@ RUN mv ./aws-iam-authenticator /usr/local/bin
 
 # Set up Postgres
 VOLUME /var/lib/postgresql/data
-RUN ./docker-entrypoint.sh && psql --command "ALTER USER postgres PASSWORD 'postgres';"
+RUN ./docker-entrypoint.sh && pg_ctl -D /var/lib/postgresql/data -l /var/lib/postgresql/log.log start && psql --command "ALTER USER postgres PASSWORD 'postgres';"
