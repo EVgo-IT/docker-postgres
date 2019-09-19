@@ -26,5 +26,5 @@ RUN initdb /var/lib/postgresql/data
 USER root
 RUN echo "host all  all    0.0.0.0/0  md5" >> /var/lib/postgresql/data/pg_hba.conf
 USER postgres
-RUN pg_ctl start -D /var/lib/postgresql/data -l /var/lib/postgresql/log.log && psql --command "ALTER USER postgres PASSWORD 'postgres';"
+RUN pg_ctl -D /var/lib/postgresql/data -l /var/lib/postgresql/log.log start && psql --command "ALTER USER postgres PASSWORD 'postgres';"
 VOLUME /var/lib/postgresql/data
