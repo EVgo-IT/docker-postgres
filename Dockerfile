@@ -21,8 +21,6 @@ RUN chmod +x ./aws-iam-authenticator
 RUN mv ./aws-iam-authenticator /usr/local/bin
 
 # Set up Postgres
-USER postgres
-RUN initdb /var/lib/postgresql/data
-RUN echo "host all  all    0.0.0.0/0  md5" >> /var/lib/postgresql/data/pg_hba.conf
-RUN pg_ctl -D /var/lib/postgresql/data -l /var/lib/postgresql/log.log start && psql --command "ALTER USER postgres PASSWORD 'postgres';"
+RUN ./docker-entrypoint.sh
+RUN psql --command "ALTER USER postgres PASSWORD 'postgres';"
 VOLUME /var/lib/postgresql/data
